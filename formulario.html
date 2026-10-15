@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORMULARIO</title>
+</head>
+<body>
+    <h1>FORMULARIO</h1>
+    <p>Pilar Ventura Fernández</p>
+
+    <!-- Formulario para ingresar la nota -->
+    <form id="formNotas">
+        <label for="nota">Introduce tu nota (0 - 10):</label>
+        <input type="text" id="nota" placeholder="Introduce tu nota" required>
+        <button type="submit">Calcular</button>
+    </form>
+
+    <!-- Aquí mostraremos el resultado -->
+    <p id="resultado"></p>
+
+    <!-- Vinculación del archivo JavaScript -->
+    <script>
+       function obtenerCalificacion(nota) {
+    if (nota >= 0 && nota < 5) {
+        return "Suspenso";
+    } else if (nota >= 5 && nota < 6) {
+        return "Aprobado";
+    } else if (nota >= 6 && nota < 7) {
+        return "Bien";
+    } else if (nota >= 7 && nota < 9) {
+        return "Notable";
+    } else if (nota >= 9 && nota <= 10) {
+        return "Sobresaliente";
+    } else {
+        return "Nota fuera de rango";
+    }
+}
+
+    // Obtenemos los elementos del DOM
+        const formNotas = document.getElementById("formNotas");
+        const inputNota = document.getElementById("nota");
+        const salidaResultado = document.getElementById("resultado");
+    
+    // Escuchamos el evento de envío
+        formNotas.addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitamos que el formulario se envíe de forma tradicional
+            
+    // Convertimos el texto a número
+        const valorTexto = inputNota.value.trim().replace(",", ".");
+        const nota = parseFloat(valorTexto);
+    
+    // Comprobamos si la nota es un número válido
+        if (isNaN(nota)) {
+            salidaResultado.textContent = "Por favor, introduce un número válido.";
+            return;
+        }
+    
+    // Calculamos la calificación
+        const calificacion = obtenerCalificacion(nota);
+    
+    // Mostramos el resultado en el párrafo
+        salidaResultado.textContent = `Tu calificación es: ${calificacion}`;
+        });
+    </script>
+</body>
+</html>
